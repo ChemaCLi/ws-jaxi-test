@@ -1,0 +1,43 @@
+{
+  "name": "ws-jaxi-test",
+  "version": "1.0.0",
+  "description": "Web Service para el ejercicio de jaxi",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:coverage-all": "jest --coverage --watchAll",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chemah/ws-jaxi-test.git"
+  },
+  "keywords": [
+    "test",
+    "jaxi"
+  ],
+  "author": "Chema CL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chemah/ws-jaxi-test/issues"
+  },
+  "homepage": "https://github.com/Chemah/ws-jaxi-test#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^7.12.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "superagent": "^5.1.0",
+    "supertest": "^4.0.2"
+  }
+}
