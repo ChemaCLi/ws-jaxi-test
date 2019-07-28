@@ -4,7 +4,7 @@ const app = require('../app')
 describe('Test del módulo projects', () => {
 
      describe('Obtener los proyectos activos activos', () => {
-          test('Debería responder con un objeto con status 202 y la propiedad data debería ser un array de resultados', async () => {
+          test('Debería responder con un objeto con status 200 y la propiedad data debería ser un array de resultados', async () => {
                let response = await request(app).get('/api/v1/projects')
                expect(response.status).toBe(200)
                expect(response.body.error).toBe(false)

@@ -19,7 +19,7 @@ const ProjectModel = require('./project')
  */
 router.get('/', (req, res) => {
     try {
-        let Project = new ProjectModel()
+        let Project = new ProjectModel.Project()
 
         Project.getActive()
             .then(rows => {
@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
 */
 router.get('/:id', (req, res) => {
     try {
-        let Project = new ProjectModel()
+        let Project = new ProjectModel.Project()
 
         Project.getActive()
             .then(rows => {
@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
         columns.bl_deleted = req.body.bl_deleted = !undefined ? req.body.bl_deleted : null
         columns.bl_is_active = req.body.bl_is_active = !undefined ? req.body.bl_is_active : null
 
-        let Project = new ProjectModel()
+        let Project = new ProjectModel.Project()
         Project.create(columns)
             .then(rows => {
                 res
@@ -125,7 +125,7 @@ router.put('/', (req, res) => {
         columns.bl_deleted = req.body.bl_deleted = !undefined ? req.body.bl_deleted : false
         columns.bl_is_active = req.body.bl_is_active = !undefined ? req.body.bl_is_active : true
 
-        let Project = new ProjectModel()
+        let Project = new ProjectModel.Project()
         Project.update(columns)
             .then(rows => {
                 res
@@ -154,7 +154,7 @@ router.delete('/:id', (req, res) => {
     try {
         let int_id = req.params.id ? req.params.id : 0
 
-        let Project = new ProjectModel()
+        let Project = new ProjectModel.Project()
         Project.remove(int_id)
             .then(rows => {
                 res

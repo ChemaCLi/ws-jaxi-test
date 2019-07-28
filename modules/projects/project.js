@@ -1,11 +1,12 @@
 const { SequelizeConnection, Sequelize } = require('../../modules/db')
+const Task = require('../tasks/task')
 
 class Project {
      /**
       * Constructor del objeto
       */
      constructor() {
-
+          console.log("Hey")
      }
 
      /**
@@ -59,6 +60,29 @@ class Project {
      }
 
      /**
+      * Devuele los modelos de sequelize
+      */
+     getModels(){
+          let task = new Task.Task()
+          let TaskModel = task.getModel()
+          let ProjectModel = this.getModel()
+
+          TaskModel.belongsTo(ProjectModel, {
+               foreignKey: 'project_int_id'
+          })
+          
+          ProjectModel.hasMany(TaskModel, {
+               foreignKey: 'project_int_id'
+          })
+          
+
+          return ({
+               ProjectModel: ProjectModel,
+               TaskModel: TaskModel
+          })
+     }
+
+     /**
       * Devuelve el modelo de sequelize
       */
      getModel() {
@@ -92,19 +116,22 @@ class Project {
           if (columns.hasOwnProperty('bl_is_active'))
           colsToInsert.bl_is_active = columns.bl_is_active
 
-          let Project = this.getModel()
-          let newProject = await Project.create(colsToInsert).then(result => { return result }).catch(err => { throw err })
+          let ProjectModel = this.getModel()
+          let newProject = await ProjectModel.create(colsToInsert).then(result => { return result }).catch(err => { throw err })
           return newProject
      }
 
      /**
-      * Devuelve todos los proyectos registrados que estan activos
+      * Devuelve todos los proyectos registrados que estan activos junto con las tareas relacionadas
       */
      async getActive() {
-          let Project = this.getModel()
+          let models = this.getModels()
+          let ProjectModel = models.ProjectModel
+          let TaskModel = models.TaskModel
 
-          let activeProjects = await Project.findAll({
+          let activeProjects = await ProjectModel.findAll({
                attributes: ['int_id', 'str_title', 'str_description', 'dtm_start_date', 'dtm_end_date', 'dtm_last_edit', 'dtm_finish_date', 'bl_deleted', 'bl_is_active'],
+               include: [{ model: TaskModel }],
                where: { bl_is_active: true },
           }).then(rows => { return (rows) }).catch(
                err => { throw err })
@@ -137,9 +164,9 @@ class Project {
           if (columns.hasOwnProperty('bl_is_active'))
                cols.bl_is_active = columns.bl_is_active
 
-          let Project = this.getModel()
+          let ProjectModel = this.getModel()
 
-          let result = await Project.update(
+          let result = await ProjectModel.update(
                cols,
                { where: { int_id: cols.int_id } })
                .then(result => { return result })
@@ -163,4 +190,4 @@ class Project {
      }
 }
 
-module.exports = Project
+exports.Project = Project
