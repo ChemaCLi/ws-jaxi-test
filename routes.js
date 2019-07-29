@@ -16,11 +16,11 @@ const msg = require('./utils/message')//módulo con la colección de mensajes qu
 //# Módulos de aplicación
 const projects = require('./modules/projects')
 const tasks = require('./modules/tasks')
-//const users = require('./modules/users')
+const users = require('./modules/users')
 
 router.use('/projects', projects)
 router.use('/tasks', tasks)
-//router.use('/users', users)
+router.use('/users', users)
 
 router.get('/', (req, res) => {
      res
